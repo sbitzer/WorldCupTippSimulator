@@ -241,6 +241,25 @@ class WC2014Tippspiel(object):
             self.wins = np.sign(self.scorediffs)
             self.wininds =  self.wins != 0.
             
+            
+    def readWC2014tipps(self, fname='WM2014_tipps.txt'):
+        names = []
+        scores = []
+        
+        with open(fname, 'r') as tipfile:
+            tipreader = csv.reader(tipfile, delimiter = ';')
+            for row in tipreader:
+                names.append(row[0])
+                scs = []
+                for scstr in row[1:]:
+                    match = re.match(' ?(\d+):(\d+)', scstr)
+                    scs.append([int(match.group(1)), int(match.group(2))])
+                
+                scores.append(scs)
+                
+        return names, np.array(scores).transpose(1, 2, 0)
+        
+            
     def compWCPoints(self, predscore):
         """computes points for one or more full sets of world cup predictions"""
         
@@ -356,12 +375,27 @@ class WC2014Tippspiel(object):
         return Pdist[:, 1:]
 
 
-def makePlot(PSdist, Pdist):
-    plt.subplot(2, 1, 1)
-    im1 = plt.pcolormesh(PSdist[:151, :], vmin=0, vmax=0.1)
+def plotTippScoresWithDist(Pdist, Ptips, names):
+    nm, nt = Ptips.shape
+    maxp = 120
     
-    plt.subplot(2, 1, 2)
-    im2 = plt.pcolormesh(Pdist[:151, :PSdist.shape[1]], vmin=0, vmax=0.1)
+    cols = ['0.3', '0.7']
+    
+    cm = plt.get_cmap('hot_r')
+    im1 = plt.pcolormesh(np.arange(1, nm+1), np.arange(maxp+1), 
+                         Pdist[:maxp+1, :nm], vmin=0, vmax=0.05, cmap=cm, 
+                         shading='gouraud')
+    
+    for tip in range(nt):
+        plt.plot(range(1, nm+1), Ptips[:, tip], linewidth=2, label=names[tip],
+                 c=cols[tip])
+    
+    plt.xlim(1, nm)
+    plt.xlabel('Spielnummer')
+    plt.ylabel('Punkte')
+    cbar = plt.colorbar(im1)
+    cbar.set_label('Wahrscheinlichkeit', rotation=270)
+    plt.legend(loc=2, frameon=False)
     
     plt.show()
     
@@ -372,16 +406,23 @@ if __name__ == "__main__":
     tip = WC2014Tippspiel()
     
     # sample
-    N = 10000
-    S = sim.sampleWorldcup(N)
-    points = tip.compWCPoints(S)
-    pointscum = points.cumsum(0)
-    PSdist = np.empty((64 * tip.prule[2] + 1, pointscum.shape[0]))
-    bins = range(64 * tip.prule[2]+2)
-    for m in range(pointscum.shape[0]):
-        PSdist[:, m], _ = np.histogram(pointscum[m, :], bins, density=True)
+#    N = 10000
+#    S = sim.sampleWorldcup(N)
+#    points = tip.compWCPoints(S)
+#    pointscum = points.cumsum(0)
+#    PSdist = np.empty((64 * tip.prule[2] + 1, pointscum.shape[0]))
+#    bins = range(64 * tip.prule[2]+2)
+#    for m in range(pointscum.shape[0]):
+#        PSdist[:, m], _ = np.histogram(pointscum[m, :], bins, density=True)
     
-    # analytic
+    # analytic point distribution based on score model
     Pdist = tip.compPointDist(sim)
     
-    makePlot(PSdist, Pdist)
+    # read tipp scores
+    names, tscores = tip.readWC2014tipps()
+    
+    # compute points for each tipp
+    tpoints = tip.compWCPoints(tscores)
+    
+    # plot tipp points together with point distribution
+    plotTippScoresWithDist(Pdist, tpoints.cumsum(0), names)
