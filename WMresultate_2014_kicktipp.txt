@@ -61,5 +61,5 @@ WM; 05.07.14 12:00; 05.07.14 12:00; Argentinien; Belgien; Viertelfinale; 1:0; Ma
 WM; 05.07.14 16:00; 05.07.14 16:00; Niederlande; Costa Rica; Viertelfinale; 4:3nE; Matches; 0 min. before event
 WM; 08.07.14 16:00; 08.07.14 16:00; Brasilien; Deutschland; Halbfinale; 1:7; Matches; 0 min. before event
 WM; 09.07.14 16:00; 09.07.14 16:00; Niederlande; Argentinien; Halbfinale; 2:4nE; Matches; 0 min. before event
-WM; 12.07.14 16:00; 12.07.14 16:00; ; ; Spiel um Platz 3; -:-; Matches; 0 min. before event
-WM; 13.07.14 15:00; 13.07.14 15:00; ; ; Finale; -:-; Matches; 0 min. before event
+WM; 12.07.14 16:00; 12.07.14 16:00; Brasilien; Niederlande; Spiel um Platz 3; 0:3; Matches; 0 min. before event
+WM; 13.07.14 15:00; 13.07.14 15:00; Deutschland; Argentinien; Finale; -:-; Matches; 0 min. before event

@@ -10,6 +10,8 @@ import numpy as np
 import re
 from scipy.stats import poisson
 
+import matplotlib.pyplot as plt
+
 
 def parseScore(scstr):
     match = re.match('(\d+):(\d+)(?: a.e.t.)?(?: \([:,\d\s]+\))?(?: (\d+):(\d+) PSO)?', scstr)
@@ -131,6 +133,15 @@ class ScoreDist(object):
     def getScoreind(self, score):
         return np.arange(1, score[0] + 1).sum() + score[1]
         
+    def getFullDist(self):
+        winind = np.flatnonzero( (self.scores[:, 0] - self.scores[:, 1]) != 0 )
+        scores = np.vstack( (self.scores, self.scores[winind, ::-1]) )
+        probs = np.hstack( (self.probs, self.probs[winind]) )
+        probs[winind] = probs[winind] * self.swapprob
+        probs[self.nscores:] = probs[self.nscores:] * self.swapprob
+        
+        return scores, probs
+        
 
 class TippSimulator(object):
     """Implements a model which can predict tips for football games 
@@ -196,7 +207,7 @@ class TippSimulator(object):
         S12scores = np.vstack(( S1scores.reshape((48, 2*N), order='C'), 
                                 S2scores.reshape((16, 2*N), order='C') ))
         
-        return S12scores.reshape( (64, 2, N), order='F')
+        return S12scores.reshape( (64, 2, N), order='F')    
         
         
 class WC2014Tippspiel(object):
@@ -230,8 +241,8 @@ class WC2014Tippspiel(object):
             self.wins = np.sign(self.scorediffs)
             self.wininds =  self.wins != 0.
             
-    def compPoints(self, predscore):
-        """computes points for a full set of world cup predictions"""
+    def compWCPoints(self, predscore):
+        """computes points for one or more full sets of world cup predictions"""
         
         # number of predictions (of full world cup)
         if len(predscore.shape) == 3:
@@ -272,8 +283,40 @@ class WC2014Tippspiel(object):
                                    & ~self.wininds)
             if len(pinds) > 0:
                 sinds = (predscore[pinds, 0, p] - self.scores[pinds, 0]) == 0
-                points[pinds[sinds]] = self.prule[2]
-                points[pinds[~sinds]] = self.prule[0]
+                points[pinds[sinds], p] = self.prule[2]
+                points[pinds[~sinds], p] = self.prule[0]
+            
+        return points
+        
+    def compPoints(self, mind, predscores):
+        """compute points for a set of scores predicted for a single match"""
+        
+        scdiffs = predscores[:, 0] - predscores[:, 1]
+        
+        # indices of the predicted scores that had the correct outcome 
+        # (draw or win for the team that really won)
+        pinds = np.flatnonzero( np.sign(scdiffs) == self.wins[mind] )
+        
+        scdiffs = scdiffs[pinds]
+        
+        # absolute error in scores
+        scerror = np.abs(predscores[pinds, :] - self.scores[mind, :]).sum(1)
+        
+        # initialise points
+        points = np.zeros(predscores.shape[0])
+        
+        # points for correctly predicted score
+        points[pinds[scerror == 0]] = self.prule[2]
+        
+        # if the match had a winner
+        if self.wininds[mind]:
+            points[pinds[ (scerror != 0) & 
+                          (scdiffs == self.scorediffs[mind]) ]] = self.prule[1]
+            points[pinds[ (scerror != 0) & 
+                          (scdiffs != self.scorediffs[mind]) ]] = self.prule[0]
+            
+        else:
+            points[pinds[ scerror != 0 ]] = self.prule[0]
             
         return points
         
@@ -284,16 +327,61 @@ class WC2014Tippspiel(object):
         
         # initialise point distribution
         maxP = 64 * self.prule[2]
-        Pdist = np.zeros(maxP, 64)
+        Pdist = np.zeros((maxP+1, 65))
+        Pdist[0, 0] = 1
         
+        dscores, dprobs = sim.stage1dist.getFullDist()
         
+        # for all WC2014 matches
+        for m in range(1, self.nscores+1):
+            # the 49th match is the first in the second stage
+            if m == 48:
+                dscores, dprobs = sim.stage2dist.getFullDist()
+            
+            # compute points for all scores in the scoredist
+            scPoints = self.compPoints(m-1, dscores)
+            
+            # get distribution of points for this match and convolve with old
+            # point distribution to get new point distribution
+            pproball = 0
+            for p in self.prule:
+                pprob = dprobs[scPoints == p].sum()
+                for P in range(p, maxP+1):
+                    Pdist[P, m] = Pdist[P, m] + Pdist[P-p, m-1] * pprob
+                
+                pproball = pproball + pprob
+                
+            Pdist[:, m] = Pdist[:, m] + Pdist[:, m-1] * (1 - pproball)
+            
+        return Pdist[:, 1:]
 
+
+def makePlot(PSdist, Pdist):
+    plt.subplot(2, 1, 1)
+    im1 = plt.pcolormesh(PSdist[:151, :], vmin=0, vmax=0.1)
+    
+    plt.subplot(2, 1, 2)
+    im2 = plt.pcolormesh(Pdist[:151, :PSdist.shape[1]], vmin=0, vmax=0.1)
+    
+    plt.show()
+    
 
 if __name__ == "__main__":
     worldcups = readWCHistory()
     sim = TippSimulator(worldcups)
-    S = sim.sampleWorldcup(100)
     tip = WC2014Tippspiel()
-    points = tip.compPoints(S)
-    print points.sum(0)
     
+    # sample
+    N = 10000
+    S = sim.sampleWorldcup(N)
+    points = tip.compWCPoints(S)
+    pointscum = points.cumsum(0)
+    PSdist = np.empty((64 * tip.prule[2] + 1, pointscum.shape[0]))
+    bins = range(64 * tip.prule[2]+2)
+    for m in range(pointscum.shape[0]):
+        PSdist[:, m], _ = np.histogram(pointscum[m, :], bins, density=True)
+    
+    # analytic
+    Pdist = tip.compPointDist(sim)
+    
+    makePlot(PSdist, Pdist)
