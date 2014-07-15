@@ -6,7 +6,7 @@ WM; 13.06.14 18:00; 13.06.14 18:00; Chile; Australien; Gruppe B; 3:1; Matches; 0
 WM; 14.06.14 12:00; 14.06.14 12:00; Kolumbien; Griechenland; Gruppe C; 3:0; Matches; 0 min. before event
 WM; 14.06.14 15:00; 14.06.14 15:00; Uruguay; Costa Rica; Gruppe D; 1:3; Matches; 0 min. before event
 WM; 14.06.14 18:00; 14.06.14 18:00; England; Italien; Gruppe D; 1:2; Matches; 0 min. before event
-WM; 14.06.14 21:00; 14.06.14 21:00; Elfenbeinküste; Japan; Gruppe C; 2:1; Matches; 0 min. before event
+WM; 14.06.14 21:00; 14.06.14 21:00; ElfenbeinkÃ¼ste; Japan; Gruppe C; 2:1; Matches; 0 min. before event
 WM; 15.06.14 12:00; 15.06.14 12:00; Schweiz; Ecuador; Gruppe E; 2:1; Matches; 0 min. before event
 WM; 15.06.14 15:00; 15.06.14 15:00; Frankreich; Honduras; Gruppe E; 3:0; Matches; 0 min. before event
 WM; 15.06.14 18:00; 15.06.14 18:00; Argentinien; Bosnien-Herzegowina; Gruppe F; 2:1; Matches; 0 min. before event
@@ -15,11 +15,11 @@ WM; 16.06.14 15:00; 16.06.14 15:00; Iran; Nigeria; Gruppe F; 0:0; Matches; 0 min
 WM; 16.06.14 18:00; 16.06.14 18:00; Ghana; USA; Gruppe G; 1:2; Matches; 0 min. before event
 WM; 17.06.14 12:00; 17.06.14 12:00; Belgien; Algerien; Gruppe H; 2:1; Matches; 0 min. before event
 WM; 17.06.14 15:00; 17.06.14 15:00; Brasilien; Mexiko; Gruppe A; 0:0; Matches; 0 min. before event
-WM; 17.06.14 18:00; 17.06.14 18:00; Russland; Südkorea; Gruppe H; 1:1; Matches; 0 min. before event
+WM; 17.06.14 18:00; 17.06.14 18:00; Russland; SÃ¼dkorea; Gruppe H; 1:1; Matches; 0 min. before event
 WM; 18.06.14 12:00; 18.06.14 12:00; Australien; Niederlande; Gruppe B; 2:3; Matches; 0 min. before event
 WM; 18.06.14 15:00; 18.06.14 15:00; Spanien; Chile; Gruppe B; 0:2; Matches; 0 min. before event
 WM; 18.06.14 18:00; 18.06.14 18:00; Kamerun; Kroatien; Gruppe A; 0:4; Matches; 0 min. before event
-WM; 19.06.14 12:00; 19.06.14 12:00; Kolumbien; Elfenbeinküste; Gruppe C; 2:1; Matches; 0 min. before event
+WM; 19.06.14 12:00; 19.06.14 12:00; Kolumbien; ElfenbeinkÃ¼ste; Gruppe C; 2:1; Matches; 0 min. before event
 WM; 19.06.14 15:00; 19.06.14 15:00; Uruguay; England; Gruppe D; 2:1; Matches; 0 min. before event
 WM; 19.06.14 18:00; 19.06.14 18:00; Japan; Griechenland; Gruppe C; 0:0; Matches; 0 min. before event
 WM; 20.06.14 12:00; 20.06.14 12:00; Italien; Costa Rica; Gruppe D; 0:1; Matches; 0 min. before event
@@ -29,7 +29,7 @@ WM; 21.06.14 12:00; 21.06.14 12:00; Argentinien; Iran; Gruppe F; 1:0; Matches; 0
 WM; 21.06.14 15:00; 21.06.14 15:00; Deutschland; Ghana; Gruppe G; 2:2; Matches; 0 min. before event
 WM; 21.06.14 18:00; 21.06.14 18:00; Nigeria; Bosnien-Herzegowina; Gruppe F; 1:0; Matches; 0 min. before event
 WM; 22.06.14 12:00; 22.06.14 12:00; Belgien; Russland; Gruppe H; 1:0; Matches; 0 min. before event
-WM; 22.06.14 15:00; 22.06.14 15:00; Südkorea; Algerien; Gruppe H; 2:4; Matches; 0 min. before event
+WM; 22.06.14 15:00; 22.06.14 15:00; SÃ¼dkorea; Algerien; Gruppe H; 2:4; Matches; 0 min. before event
 WM; 22.06.14 18:00; 22.06.14 18:00; USA; Portugal; Gruppe G; 2:2; Matches; 0 min. before event
 WM; 23.06.14 12:00; 23.06.14 12:00; Australien; Spanien; Gruppe B; 0:3; Matches; 0 min. before event
 WM; 23.06.14 12:00; 23.06.14 12:00; Niederlande; Chile; Gruppe B; 2:0; Matches; 0 min. before event
@@ -38,14 +38,14 @@ WM; 23.06.14 16:00; 23.06.14 16:00; Kroatien; Mexiko; Gruppe A; 1:3; Matches; 0 
 WM; 24.06.14 12:00; 24.06.14 12:00; Italien; Uruguay; Gruppe D; 0:1; Matches; 0 min. before event
 WM; 24.06.14 12:00; 24.06.14 12:00; Costa Rica; England; Gruppe D; 0:0; Matches; 0 min. before event
 WM; 24.06.14 16:00; 24.06.14 16:00; Japan; Kolumbien; Gruppe C; 1:4; Matches; 0 min. before event
-WM; 24.06.14 16:00; 24.06.14 16:00; Griechenland; Elfenbeinküste; Gruppe C; 2:1; Matches; 0 min. before event
+WM; 24.06.14 16:00; 24.06.14 16:00; Griechenland; ElfenbeinkÃ¼ste; Gruppe C; 2:1; Matches; 0 min. before event
 WM; 25.06.14 12:00; 25.06.14 12:00; Nigeria; Argentinien; Gruppe F; 2:3; Matches; 0 min. before event
 WM; 25.06.14 12:00; 25.06.14 12:00; Bosnien-Herzegowina; Iran; Gruppe F; 3:1; Matches; 0 min. before event
 WM; 25.06.14 16:00; 25.06.14 16:00; Honduras; Schweiz; Gruppe E; 0:3; Matches; 0 min. before event
 WM; 25.06.14 16:00; 25.06.14 16:00; Ecuador; Frankreich; Gruppe E; 0:0; Matches; 0 min. before event
 WM; 26.06.14 12:00; 26.06.14 12:00; Portugal; Ghana; Gruppe G; 2:1; Matches; 0 min. before event
 WM; 26.06.14 12:00; 26.06.14 12:00; USA; Deutschland; Gruppe G; 0:1; Matches; 0 min. before event
-WM; 26.06.14 16:00; 26.06.14 16:00; Südkorea; Belgien; Gruppe H; 0:1; Matches; 0 min. before event
+WM; 26.06.14 16:00; 26.06.14 16:00; SÃ¼dkorea; Belgien; Gruppe H; 0:1; Matches; 0 min. before event
 WM; 26.06.14 16:00; 26.06.14 16:00; Algerien; Russland; Gruppe H; 1:1; Matches; 0 min. before event
 WM; 28.06.14 12:00; 28.06.14 12:00; Brasilien; Chile; Achtelfinale; 4:3nE; Matches; 0 min. before event
 WM; 28.06.14 16:00; 28.06.14 16:00; Kolumbien; Uruguay; Achtelfinale; 2:0; Matches; 0 min. before event
@@ -62,4 +62,4 @@ WM; 05.07.14 16:00; 05.07.14 16:00; Niederlande; Costa Rica; Viertelfinale; 4:3n
 WM; 08.07.14 16:00; 08.07.14 16:00; Brasilien; Deutschland; Halbfinale; 1:7; Matches; 0 min. before event
 WM; 09.07.14 16:00; 09.07.14 16:00; Niederlande; Argentinien; Halbfinale; 2:4nE; Matches; 0 min. before event
 WM; 12.07.14 16:00; 12.07.14 16:00; Brasilien; Niederlande; Spiel um Platz 3; 0:3; Matches; 0 min. before event
-WM; 13.07.14 15:00; 13.07.14 15:00; Deutschland; Argentinien; Finale; -:-; Matches; 0 min. before event
+WM; 13.07.14 15:00; 13.07.14 15:00; Deutschland; Argentinien; Finale; 1:0nV; Matches; 0 min. before event

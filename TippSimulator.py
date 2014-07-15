@@ -400,29 +400,29 @@ def plotTippScoresWithDist(Pdist, Ptips, names):
     plt.show()
     
 
-if __name__ == "__main__":
-    worldcups = readWCHistory()
-    sim = TippSimulator(worldcups)
-    tip = WC2014Tippspiel()
-    
-    # sample
-#    N = 10000
-#    S = sim.sampleWorldcup(N)
-#    points = tip.compWCPoints(S)
-#    pointscum = points.cumsum(0)
-#    PSdist = np.empty((64 * tip.prule[2] + 1, pointscum.shape[0]))
-#    bins = range(64 * tip.prule[2]+2)
-#    for m in range(pointscum.shape[0]):
-#        PSdist[:, m], _ = np.histogram(pointscum[m, :], bins, density=True)
-    
-    # analytic point distribution based on score model
-    Pdist = tip.compPointDist(sim)
-    
-    # read tipp scores
-    names, tscores = tip.readWC2014tipps()
-    
-    # compute points for each tipp
-    tpoints = tip.compWCPoints(tscores)
-    
-    # plot tipp points together with point distribution
-    plotTippScoresWithDist(Pdist, tpoints.cumsum(0), names)
+#if __name__ == "__main__":
+#    worldcups = readWCHistory()
+#    sim = TippSimulator(worldcups)
+#    tip = WC2014Tippspiel()
+#    
+#    # sample
+##    N = 10000
+##    S = sim.sampleWorldcup(N)
+##    points = tip.compWCPoints(S)
+##    pointscum = points.cumsum(0)
+##    PSdist = np.empty((64 * tip.prule[2] + 1, pointscum.shape[0]))
+##    bins = range(64 * tip.prule[2]+2)
+##    for m in range(pointscum.shape[0]):
+##        PSdist[:, m], _ = np.histogram(pointscum[m, :], bins, density=True)
+#    
+#    # analytic point distribution based on score model
+#    Pdist = tip.compPointDist(sim)
+#    
+#    # read tipp scores
+#    names, tscores = tip.readWC2014tipps()
+#    
+#    # compute points for each tipp
+#    tpoints = tip.compWCPoints(tscores)
+#    
+#    # plot tipp points together with point distribution
+#    plotTippScoresWithDist(Pdist, tpoints.cumsum(0), names)
