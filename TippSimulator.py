@@ -439,11 +439,11 @@ def plotTippPointsWithCDF(Pdist, Ptips, names, pval=0.01):
     
     a = 1
     plt.fill_between(range(1, nm+1), upP, maxp, facecolor=dcols[0], 
-                     interpolate=False, alpha=a)
+                     edgecolor='none', interpolate=False, alpha=a)
     plt.fill_between(range(1, nm+1), botP, upP, facecolor=dcols[1], 
-                     interpolate=False, alpha=a)
+                     edgecolor=dcols[1], interpolate=False, alpha=a)
     plt.fill_between(range(1, nm+1), 0, botP, facecolor=dcols[2], 
-                     interpolate=False, alpha=a)
+                     edgecolor='none', interpolate=False, alpha=a)
     
     plt.show()
     
