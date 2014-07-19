@@ -375,29 +375,80 @@ class WC2014Tippspiel(object):
         return Pdist[:, 1:]
 
 
-def plotTippScoresWithDist(Pdist, Ptips, names):
+def plotPersonPoints(Ptips, names, maxp=120):
     nm, nt = Ptips.shape
-    maxp = 120
+    np = len(names)
     
     cols = ['0.3', '0.7']
     
-    cm = plt.get_cmap('hot_r')
-    im1 = plt.pcolormesh(np.arange(1, nm+1), np.arange(maxp+1), 
-                         Pdist[:maxp+1, :nm], vmin=0, vmax=0.05, cmap=cm, 
-                         shading='gouraud')
+    plt.figure(figsize=(8, 4))
     
     for tip in range(nt):
         plt.plot(range(1, nm+1), Ptips[:, tip], linewidth=2, label=names[tip],
                  c=cols[tip])
     
     plt.xlim(1, nm)
+    plt.ylim(0, maxp)
     plt.xlabel('Spielnummer')
     plt.ylabel('Punkte')
+    leg = plt.legend(loc=2, frameon=False)
+    
+    texts = leg.get_texts()
+    for p in range(np):
+        texts[p].set_color(cols[p])
+    
+    return leg
+    
+
+def plotTippPointsWithDist(Pdist, Ptips, names):
+    maxp = 120
+    nm = Ptips.shape[0]
+    
+    plotPersonPoints(Ptips, names, maxp)
+    
+    cm = plt.get_cmap('hot_r')
+    im1 = plt.pcolormesh(np.arange(1, nm+1), np.arange(maxp+1), 
+                         Pdist[:maxp+1, :nm], vmin=0, vmax=0.05, cmap=cm, 
+                         shading='gouraud')
+    
     cbar = plt.colorbar(im1)
     cbar.set_label('Wahrscheinlichkeit', rotation=270)
-    plt.legend(loc=2, frameon=False)
     
     plt.show()
+    
+    
+def plotTippPointsWithCDF(Pdist, Ptips, names, pval=0.01):
+    maxp = 120
+    nm = Ptips.shape[0]
+    
+    plotPersonPoints(Ptips, names, maxp)
+    
+    dcols = ('#000000', '#FF0000', '#FFCC00')
+    
+    Pcdf = Pdist[:maxp+1, :nm].cumsum(0)
+    
+    upP = np.zeros(nm)
+    botP = np.zeros(nm)
+    for m in range(nm):
+        pinds = np.flatnonzero(Pcdf[:, m] > 1 - pval)
+        upP[m] = pinds[0]
+        
+        pinds = np.flatnonzero(Pcdf[:, m] < pval)
+        if pinds.size > 0:
+            botP[m] = pinds[-1]
+    
+    a = 1
+    plt.fill_between(range(1, nm+1), upP, maxp, facecolor=dcols[0], 
+                     interpolate=False, alpha=a)
+    plt.fill_between(range(1, nm+1), botP, upP, facecolor=dcols[1], 
+                     interpolate=False, alpha=a)
+    plt.fill_between(range(1, nm+1), 0, botP, facecolor=dcols[2], 
+                     interpolate=False, alpha=a)
+    
+    plt.show()
+    
+    
+    print 'points to be above pval =', pval, ':', upP[-1]
     
 
 #if __name__ == "__main__":
@@ -425,4 +476,6 @@ def plotTippScoresWithDist(Pdist, Ptips, names):
 #    tpoints = tip.compWCPoints(tscores)
 #    
 #    # plot tipp points together with point distribution
-#    plotTippScoresWithDist(Pdist, tpoints.cumsum(0), names)
+#    plotTippPointsWithDist(Pdist, tpoints.cumsum(0), names)
+#    
+#    plotTippPointsWithCDF(Pdist, tpoints.cumsum(0), names)
